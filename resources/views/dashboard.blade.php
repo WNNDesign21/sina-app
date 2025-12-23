@@ -770,6 +770,17 @@
                 modal.classList.remove('hidden');
             }
         }
+
+        // Auto-open modal if URL has openModal parameter
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('openModal') === 'true') {
+                openInputModal();
+                // Remove parameter from URL without reload
+                const newUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, newUrl);
+            }
+        });
     </script>
     <script>
         // Theme Switcher Function
