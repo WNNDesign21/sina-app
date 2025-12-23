@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --font-outfit: 'Outfit', sans-serif;
+    --color-primary: #6366f1;
+    --color-secondary: #a855f7;
+    --color-dark: #050505;
+}
+
+/* Theme Variables */
+:root {
+    --bg-primary: #030305;
+    --bg-secondary: #14141a;
+    --bg-card: rgba(20, 20, 25, 0.6);
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.05);
+    --border-hover: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --glow-1: rgba(79, 70, 229, 0.08);
+    --glow-2: rgba(168, 85, 247, 0.08);
+    --glow-3: rgba(16, 185, 129, 0.05);
+}
+
+/* Light Mode */
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(99, 102, 241, 0.3);
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --glow-1: rgba(99, 102, 241, 0.05);
+    --glow-2: rgba(168, 85, 247, 0.05);
+    --glow-3: rgba(16, 185, 129, 0.03);
+}
+
+/* Base Styles */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-outfit);
+    background-image:
+        radial-gradient(circle at 15% 50%, var(--glow-1) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, var(--glow-2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, var(--glow-3) 0%, transparent 50%);
+    background-attachment: fixed;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Premium Glass Effect */
+.glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 12px 40px 0 var(--shadow-color);
+}
+
+[data-theme="light"] .glass-card:hover {
+    box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.15);
+}
+
+/* Utilities */
+.text-gradient {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.input-premium {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .input-premium {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-primary);
+}
+
+.input-premium:focus {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+    outline: none;
+}
+
+[data-theme="light"] .input-premium:focus {
+    background: rgba(255, 255, 255, 1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.5);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    border-color: var(--border-hover);
+}
+
+.theme-toggle-slider {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+}
+
+.theme-toggle.active .theme-toggle-slider {
+    transform: translateX(30px);
+}
+
+/* Light Mode Text Overrides */
+[data-theme="light"] .text-white {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .text-gray-400,
+[data-theme="light"] .text-gray-500 {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="light"] .text-gray-300 {
+    color: #475569 !important;
+}
+
+[data-theme="light"] .text-indigo-400 {
+    color: #6366f1 !important;
+}
+
+[data-theme="light"] .text-purple-400 {
+    color: #a855f7 !important;
+}
+
+[data-theme="light"] .text-emerald-400 {
+    color: #10b981 !important;
+}
+
+[data-theme="light"] .text-red-400 {
+    color: #ef4444 !important;
+}
+
+[data-theme="light"] .text-yellow-400 {
+    color: #f59e0b !important;
+}
+
+/* Light mode borders */
+[data-theme="light"] .border-white\/5,
+[data-theme="light"] .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Light mode backgrounds */
+[data-theme="light"] .bg-white\/5 {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-theme="light"] .bg-white\/10 {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Stat cards for light mode */
+[data-theme="light"] .bg-indigo-500\/10 {
+    background-color: rgba(99, 102, 241, 0.1) !important;
+}
+
+[data-theme="light"] .bg-purple-500\/10 {
+    background-color: rgba(168, 85, 247, 0.1) !important;
+}
+
+[data-theme="light"] .bg-emerald-500\/10 {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+}
+
+[data-theme="light"] .bg-red-500\/10 {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Table improvements for light mode */
+[data-theme="light"] table {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] thead {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] tbody tr {
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] tbody tr:hover {
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+/* Keep gradients vibrant */
+[data-theme="light"] .bg-gradient-to-br {
+    opacity: 1;
+}
+
+/* Shadow improvements for light mode */
+[data-theme="light"] .shadow-\[0_0_15px_rgba\(99\,102\,241\,0\.5\)\] {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Ensure icons remain visible */
+[data-theme="light"] svg {
+    color: inherit;
+}
