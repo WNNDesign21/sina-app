@@ -354,6 +354,10 @@ class DashboardController extends Controller
             }
         }
 
-        return view('lecturer_transcript', compact('lecturer', 'studentRecords'));
+        // Get all students and courses for input modal
+        $students = Student::all();
+        $courses = Course::all();
+
+        return view('lecturer_transcript', compact('lecturer', 'studentRecords', 'students', 'courses'));
     }
 }
