@@ -59,7 +59,7 @@
                 <span class="font-semibold tracking-wide">Dashboard</span>
             </a>
 
-            <a href="#" onclick="document.getElementById('input-modal').classList.remove('hidden')"
+            <a href="#" onclick="openInputModal()"
                 class="group flex items-center gap-4 p-4 rounded-2xl text-gray-400 hover:bg-white/5 hover:text-white transition-all hover:translate-x-1">
                 <div
                     class="p-2 rounded-lg bg-white/5 text-gray-500 group-hover:bg-purple-500/20 group-hover:text-purple-400 transition-colors">
@@ -168,15 +168,19 @@
             <div class="flex items-center gap-6">
                 <!-- Theme Switcher -->
                 <div class="flex items-center gap-2 p-2 rounded-xl glass-card">
-                    <button onclick="switchTheme()" id="theme-btn" 
+                    <button onclick="switchTheme()" id="theme-btn"
                         class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-all group">
-                        <svg id="theme-icon" class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        <svg id="theme-icon" class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                            </path>
                         </svg>
-                        <span id="theme-text" class="text-xs font-semibold text-gray-400 group-hover:text-white transition-colors">Dark</span>
+                        <span id="theme-text"
+                            class="text-xs font-semibold text-gray-400 group-hover:text-white transition-colors">Dark</span>
                     </button>
                 </div>
-                
+
                 <div class="relative cursor-pointer group p-2 rounded-xl hover:bg-white/5 transition-colors">
                     <svg class="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
@@ -194,7 +198,8 @@
                     </div>
                     <div
                         class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 border border-white/20 shadow-[0_0_15px_rgba(99,102,241,0.5)] flex items-center justify-center text-sm font-bold">
-                        {{ strtoupper(substr($lecturerName, 0, 2)) }}</div>
+                        {{ strtoupper(substr($lecturerName, 0, 2)) }}
+                    </div>
                 </div>
             </div>
         </header>
@@ -350,8 +355,8 @@
 
     <!-- Input Modal -->
     <div id="input-modal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-[#030305]/90 backdrop-blur-md transition-opacity"
-            onclick="document.getElementById('input-modal').classList.add('hidden')"></div>
+        <div class="absolute inset-0 bg-[#030305]/90 backdrop-blur-md transition-opacity" onclick="closeInputModal()">
+        </div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl p-4">
             <div
                 class="glass-card p-8 rounded-3xl border border-indigo-500/30 shadow-[0_0_100px_rgba(99,102,241,0.2)] relative overflow-hidden">
@@ -365,7 +370,7 @@
                         <h3 class="text-2xl font-bold text-white">Input New Grade</h3>
                         <p class="text-sm text-gray-400">Secure entry for academic records</p>
                     </div>
-                    <button onclick="document.getElementById('input-modal').classList.add('hidden')"
+                    <button onclick="closeInputModal()"
                         class="p-2 rounded-xl hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -734,8 +739,39 @@
                 resultsContainer.classList.add('hidden');
             }
         });
+
+        // Function to reset form
+        function resetGradeForm() {
+            const form = document.getElementById('gradeForm');
+            if (form) {
+                form.reset();
+                const studentIdInput = document.getElementById('student_id');
+                if (studentIdInput) studentIdInput.value = '';
+                const searchInput = document.getElementById('student-search');
+                if (searchInput) searchInput.value = '';
+                const resultsContainer = document.getElementById('student-results');
+                if (resultsContainer) resultsContainer.classList.add('hidden');
+            }
+        }
+
+        // Function to close modal and reset form
+        function closeInputModal() {
+            const modal = document.getElementById('input-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                resetGradeForm();
+            }
+        }
+
+        // Function to open modal
+        function openInputModal() {
+            const modal = document.getElementById('input-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        }
     </script>
-<script>
+    <script>
         // Theme Switcher Function
         function switchTheme() {
             const theme = window.themeManager.cycleTheme();
@@ -745,21 +781,21 @@
         function updateThemeUI(theme) {
             const icon = document.getElementById('theme-icon');
             const text = document.getElementById('theme-text');
-            
+
             if (!icon || !text) return;
-            
+
             const icons = {
                 dark: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>',
                 light: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>',
                 auto: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>'
             };
-            
+
             const labels = {
                 dark: 'Dark',
                 light: 'Light',
                 auto: 'Auto'
             };
-            
+
             icon.innerHTML = icons[theme];
             text.textContent = labels[theme];
         }
